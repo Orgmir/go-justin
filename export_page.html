@@ -260,7 +260,9 @@
       (function () {
         const EXECUTABLE_NAME = "$GODOT_BASENAME";
         const MAIN_PACK = "$GODOT_BASENAME.pck";
-        const EXTRA_ARGS = JSON.parse("$GODOT_ARGS");
+        // For some reason, this is not replaced when exporting...
+        //const EXTRA_ARGS = JSON.parse("$GODOT_ARGS");
+        const EXTRA_ARGS = JSON.parse("{}");
         const DEBUG_ENABLED = $GODOT_DEBUG_ENABLED;
         const INDETERMINATE_STATUS_STEP_MS = 100;
 
