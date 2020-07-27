@@ -24,6 +24,10 @@ config/name="Go Justin"
 run/main_scene="res://src/Main.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/resizable=false
+
 [input]
 
 ui_left={
