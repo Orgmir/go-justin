@@ -8,6 +8,10 @@ func _ready():
 	randomize()
 
 
+func _process(delta):
+	$HUD.update_shoot_state($Player.can_shoot)
+
+
 func game_over():
 	$ScoreTimer.stop()
 	$EnemyTimer.stop()
@@ -23,19 +27,24 @@ func new_game():
 	$HUD.show_message("Get Ready")
 
 
-func _on_EnemyTimer_timeout():
+func spawn_enemy():
 	$EnemyPath/EnemySpawnLocation.offset = randi()
 	
 	var enemy = Enemy.instance()
 	add_child(enemy)
 	
 	enemy.position = $EnemyPath/EnemySpawnLocation.position
-	var direction = PI
+
+	var direction = $Player.position.angle_to_point(enemy.position)
 	direction += rand_range(-PI / 8, PI / 8)
 	enemy.rotation = direction + PI
 	
 	enemy.linear_velocity = Vector2(rand_range(enemy.min_speed, enemy.max_speed), 0)
 	enemy.linear_velocity = enemy.linear_velocity.rotated(direction)
+
+
+func _on_EnemyTimer_timeout():
+	spawn_enemy()
 
 
 func _on_ScoreTimer_timeout():

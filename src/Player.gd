@@ -4,11 +4,12 @@ signal hit
 
 export var speed = 400
 export var bullet_offset = 25
-onready var screen_size = get_viewport_rect().size
+export var can_shoot = true
 
+onready var screen_size = get_viewport_rect().size
 var Bullet = preload("res://src/Bullet.tscn")
 var started = false
-var canShoot = true
+
 
 func _ready():
 	hide()
@@ -32,12 +33,12 @@ func _process(delta):
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
 	
-	if started and canShoot and Input.is_action_just_pressed("click"):
+	if started and can_shoot and Input.is_action_just_pressed("click"):
 		shoot()
 	
 
 func shoot():
-	canShoot = false
+	can_shoot = false
 	$ShootCooldown.start()
 	var bullet = Bullet.instance()
 	var dir = get_global_mouse_position() - global_position
@@ -62,4 +63,4 @@ func start(pos):
 
 
 func _on_ShootCooldown_timeout():
-	canShoot = true
+	can_shoot = true
