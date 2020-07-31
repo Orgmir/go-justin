@@ -23,7 +23,7 @@ func show_message(text):
 	
 	
 func update_score(score):
-	$ScoreLabel.text = str(score)
+	$ScoreLabel.text = str(round(score))
 
 
 func update_shoot_state(can_shoot: bool):
@@ -48,4 +48,5 @@ func _on_MessageTimer_timeout():
 
 func _on_StartButton_pressed():
 	$StartButton.hide()
+	$Controls.hide()
 	emit_signal("start_game")

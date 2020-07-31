@@ -7,17 +7,19 @@
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1024, 0, 0, 0, 0, 0, 1024, 600, 0, 0, 0, 0, 0, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1024, 0 )
+"points": PoolVector2Array( 0, 0, 0, 0, 1024, 0, 0, 0, 0, 0, 1024, 600 )
 }
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
 Enemy = ExtResource( 2 )
+bonus_score = 1.0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+max_scale = 3.0
 
 [node name="EnemyTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.4
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
@@ -28,14 +30,14 @@ one_shot = true
 [node name="StartPosition" type="Position2D" parent="."]
 position = Vector2( 200, 300 )
 
+[node name="HUD" parent="." instance=ExtResource( 4 )]
+
 [node name="EnemyPath" type="Path2D" parent="."]
 curve = SubResource( 1 )
 
 [node name="EnemySpawnLocation" type="PathFollow2D" parent="EnemyPath"]
 position = Vector2( 1024, 0 )
 rotation = 1.57083
-
-[node name="HUD" parent="." instance=ExtResource( 4 )]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_EnemyTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]

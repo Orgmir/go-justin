@@ -22,5 +22,9 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="ShootCooldown" type="Timer" parent="."]
+
+[node name="ScaleTimer" type="Timer" parent="."]
+wait_time = 2.0
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
 [connection signal="timeout" from="ShootCooldown" to="." method="_on_ShootCooldown_timeout"]
+[connection signal="timeout" from="ScaleTimer" to="." method="_on_ScaleTimer_timeout"]

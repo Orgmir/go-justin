@@ -1,6 +1,8 @@
 extends Node2D
 
 export (PackedScene) var Enemy
+export var bonus_score = 10.0
+
 var score
 
 
@@ -34,8 +36,8 @@ func spawn_enemy():
 	add_child(enemy)
 	
 	enemy.position = $EnemyPath/EnemySpawnLocation.position
-
-	var direction = $Player.position.angle_to_point(enemy.position)
+#	var direction = $Player.position.angle_to_point(enemy.position)
+	var direction = PI
 	direction += rand_range(-PI / 8, PI / 8)
 	enemy.rotation = direction + PI
 	
@@ -48,7 +50,7 @@ func _on_EnemyTimer_timeout():
 
 
 func _on_ScoreTimer_timeout():
-	score += 1
+	score += 1 + $Player.scale.x * bonus_score
 	$HUD.update_score(score)
 
 
